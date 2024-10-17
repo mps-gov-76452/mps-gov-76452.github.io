@@ -1,0 +1,62 @@
+$(function(){
+	toolbar();
+	showimg();
+});
+/*网站大图*/
+function showbg(e) { var t = $("#flashs .btn span").index($("#flashs .btn span.cur")); t < 0 && (t = 0), $("#flashs .btn span.cur").css("opacity", .7).removeClass("cur"), $("#flashbg" + t).css({ opacity: 0, "z-index": 1 }), $("#flashbg" + showIndex).css({ "z-index": 2 }), $("#flashbg" + showIndex).animate({ opacity: 1 }, 500), $("#flashs .btn span").eq(showIndex).css("opacity", 1).addClass("cur") } var showIndex = 1, h = $("#flashs div.bgitem").css("opacity", 0).length, btn = "<div class='btn'>"; for (var i = 0; i < h; i++) btn += "<span>" + (i + 1) + "</span>"; btn += "</div>", $("#flashs").append(btn), $("#flashs .btn span").css("opacity", .7).mouseenter(function () { showIndex = $("#flashs .btn span").index(this), showbg(showIndex) }).eq(0).trigger("mouseenter"), $("#flashs").hover(function () { clearInterval(picTimer) }, function () { picTimer = setInterval(function () { showIndex++, showIndex == h && (showIndex = 0), showbg(showIndex) }, 5e3) }).eq(0).trigger("mouseleave")
+/*首页产品推荐*/
+$(".con_right").slide({mainCell:"#proUl ul",effect:"left",interTime: 5000,autoPlay:true});
+/*新闻中心tab*/
+$(".news .news_con .news_type a").mouseenter(function () {
+$(this).addClass("cur").siblings().removeClass("cur");
+$(".news .news_con .conleft .concase").eq($(this).index()).addClass("cur").siblings().removeClass("cur");
+});
+/*产品组图*/
+function showimg(){
+	if($("#showimg").length > 0){
+		$('#showimg').banqh({
+			box: "#showimg",//总框架
+			pic: "#bigimg",//大图框架
+			pnum: "#smallimg",//小图框架
+			prev_btn: ".prev",//小图左箭头
+			next_btn: ".next",//小图右箭头
+			autoplay: true,//是否自动播放
+			interTime: 5000,//图片自动切换间隔
+			delayTime: 400,//切换一张图片时间
+			order: 0,//当前显示的图片（从0开始）
+			picdire: true,//大图滚动方向（true为水平方向滚动）
+			mindire: true,//小图滚动方向（true为水平方向滚动）
+			min_picnum: 4,//小图显示数量
+			pop_up: false//大图是否有弹出框
+		});
+	}
+}
+/*右侧悬浮*/
+function toolbar(){
+	$('#toolbar dd').bind({
+        'mouseenter': function () {
+            if ($(this).children('.slide').length) {
+                var _this = $(this).children('.slide');
+                _this.stop(true, true).animate({ 'width': 180 }, 200);
+            } else if ($(this).children('.pop').length) {
+                var _this = $(this).children('.pop');
+                _this.show().animate({ 'right': 65 }, 180);
+            }
+        },
+        'mouseleave': function () {
+            if ($(this).children('.slide').length) {
+                var _this = $(this).children('.slide');
+                _this.stop(false, false).animate({ 'width': 0 }, 200);
+            } else if ($(this).children('.pop').length) {
+                var _this = $(this).children('.pop');
+                _this.hide().animate({ 'right': 90 },190);
+            }
+        }
+    });
+
+	$("#gotop").click(function() {
+		$("body, html").stop().animate({
+				"scrollTop": 0
+		});
+	});
+}

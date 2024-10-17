@@ -1,0 +1,95 @@
+/*旋转木马*/
+function msw_jzt(ID,btnLeft,btnRight,elment,title,speed,number){
+		var       _ID = $('#'+ID+'');
+		var  _BtnLeft = $("#"+btnLeft+"");
+		var _BtnRight = $("#"+btnRight+"");
+		var   _elment = $("#"+ID+" ."+elment+"");
+		var       len = $("#"+ID+" ."+elment+"").length;
+		var    number = number;
+		var     pfnum = (number-1)/2;
+		var       jsq = 0;
+		var    active = 0;
+
+		
+		_ID.width('100%').height('100%').css({'position':'relative','z-index':1});
+		_elment.find('img').css({'width':'100%','display':'block'});
+		_elment.css({'width':'30%','left':'35%','top':'5%','z-index':0,'position':' absolute'});
+		_elment.eq(pfnum).css({'width':'50%','left':'25%','top':'0','z-index':number}).addClass("active");
+		_elment.find(""+title+"").hide();
+		_elment.eq(pfnum).find(""+title+"").show();
+		for(i=1,th=pfnum;i<pfnum+1;i++){
+			
+			_elment.eq(th+i).css({'width':''+(50-10*i)+'%','left':''+25/pfnum*(pfnum-i)+'%','top':''+10*i+'%','z-index':number-i});
+			
+			_elment.eq(th-i).css({'width':''+(50-10*i)+'%','left':''+(50+10*i)-25/pfnum*(pfnum-i)+'%','top':''+10*i+'%','z-index':number-i});
+			
+			};
+						
+		var time = new Date;
+	
+		_BtnLeft.hover(function(){
+				clearInterval(t);
+				},function(){
+					t = setInterval(car,4000);
+					}).click(function(){
+			if(new Date-time >500){
+			time = new Date;
+			$("#"+ID+" ."+elment+":first").animate({width:'30%',left:'35%',top:'5%'}).css({'z-index':0});
+			$("#"+ID+" ."+elment+":first").insertAfter($("#"+ID+" ."+elment+":last"));
+			$("#"+ID+" ."+elment+"").eq(pfnum).addClass("active").animate({width:'50%',left:'25%',top:0}).css({'z-index':number}).find(""+title+"").show();
+			$("#"+ID+" ."+elment+"").eq(pfnum).siblings().removeClass("active").find(""+title+"").hide();
+			for(i=1,th=pfnum;i<pfnum+1;i++){
+			
+				$("#"+ID+" ."+elment+"").eq(th+i).animate({width:''+(50-10*i)+'%',left:''+25/pfnum*(pfnum-i)+'%',top:''+10*i+'%'}).css({'z-index':number-i});
+				
+				$("#"+ID+" ."+elment+"").eq(th-i).animate({width:''+(50-10*i)+'%',left:''+(50+10*i)-25/pfnum*(pfnum-i)+'%',top:''+10*i+'%'}).css({'z-index':number-i});
+				};
+			for(i=number;i<len-1;i++){
+				$("#"+ID+" ."+elment+"").eq(i).animate({width:'0%',left:'50%',top:'50%'}).css({'z-index':0});
+				};
+				}else{};
+			});
+
+		_BtnRight.hover(function(){
+				clearInterval(t);
+				},function(){
+					t = setInterval(car,4000);
+					}).click(function(){
+			if(new Date-time >500){
+			time = new Date;
+			$("#"+ID+" ."+elment+":last").animate({width:''+(50-10*pfnum)+'%',left:''+(50+10*pfnum)+'%',top:''+10*pfnum+'%'}).css({'z-index':number-pfnum});
+			$("#"+ID+" ."+elment+":last").insertBefore($("#"+ID+" ."+elment+":first"));
+			//$("#jzt .list").eq(pfnum).addClass('active');
+			$("#"+ID+" ."+elment+"").eq(pfnum).addClass("active").animate({width:'50%',left:'25%',top:0}).css({'z-index':number}).find(""+title+"").show();
+			$("#"+ID+" ."+elment+"").eq(pfnum).siblings().removeClass("active").find(""+title+"").hide();
+			for(i=1,th=pfnum;i<pfnum+1;i++){
+			
+				$("#"+ID+" ."+elment+"").eq(th+i).animate({width:''+(50-10*i)+'%',left:''+25/pfnum*(pfnum-i)+'%',top:''+10*i+'%'}).css({'z-index':number-i});
+				
+				$("#"+ID+" ."+elment+"").eq(th-i).animate({width:''+(50-10*i)+'%',left:''+(50+10*i)-25/pfnum*(pfnum-i)+'%',top:''+10*i+'%'}).css({'z-index':number-i});
+				};
+			for(i=number;i<len-1;i++){
+				$("#"+ID+" ."+elment+"").eq(i).animate({width:'0%',left:'50%',top:'5%'}).css({'z-index':0});
+				};
+				};
+			});
+				
+			function car(){
+				$("#"+ID+" ."+elment+":first").animate({width:'30%',left:'35%',top:'5%'}).css({'z-index':0});
+				$("#"+ID+" ."+elment+":first").insertAfter($("#"+ID+" ."+elment+":last"));
+				//$("#jzt .list").eq(2).addClass('active');
+				$("#"+ID+" ."+elment+"").eq(pfnum).addClass("active").animate({width:'50%',left:'25%',top:0}).css({'z-index':number}).find(""+title+"").show();
+				$("#"+ID+" ."+elment+"").eq(pfnum).siblings().removeClass("active").find(""+title+"").hide();
+				for(i=1,th=pfnum;i<pfnum+1;i++){
+				
+					$("#"+ID+" ."+elment+"").eq(th+i).animate({width:''+(50-10*i)+'%',left:''+25/pfnum*(pfnum-i)+'%',top:''+10*i+'%'}).css({'z-index':number-i});
+					
+					$("#"+ID+" ."+elment+"").eq(th-i).animate({width:''+(50-10*i)+'%',left:''+(50+10*i)-25/pfnum*(pfnum-i)+'%',top:''+10*i+'%'}).css({'z-index':number-i});
+					};
+				for(i=number;i<len-1;i++){
+					$("#"+ID+" ."+elment+"").eq(i).animate({width:'0%',left:'50%',top:'50%'}).css({'z-index':0});
+					};
+				}
+			var t = setInterval(car,speed);
+					
+}
